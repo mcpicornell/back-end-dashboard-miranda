@@ -1,0 +1,57 @@
+import fs from 'fs';
+import usersJSON from '../data/users.json';
+import {IUsers} from '../features/interfaces';
+
+export const users = usersJSON as IUsers[];
+
+const write = (users: IUsers[]) => {
+    fs.writeFileSync("src/data/users.json", JSON.stringify(users, null, 2))
+};
+
+const getUsers = async () =>{
+    return users;
+};
+
+const getByIdUser = async (userId: number) =>{
+    return users.find((element) => element.id === userId) || null;
+};
+
+const postUser = async (user: IUsers) =>{
+    const id = users.length +1;
+    user.id = id;
+    write([...users, user])
+    return user;
+};
+
+const putUser = async (userId: number, update: Partial<IUsers>) =>{
+   const user = await getByIdUser(userId)
+
+   if (!user){
+    throw new Error('Not found')
+   }
+
+   const updatedRoom = {...user, ...update};
+   const otherRooms = users.filter(element => element.id !== userId);
+
+   const updatedRooms = [...otherRooms, updatedRoom];
+   write(updatedRooms)
+   return updatedRoom;
+};
+
+ const deleteUser = async (userId: number) =>{
+    const user = await getByIdUser(userId)
+ 
+    if (!user){
+     throw new Error('Not found')
+    }
+ 
+    const updatedRoom = users.filter(element => element.id !== userId);
+ 
+    write(updatedRoom)
+ 
+    return updatedRoom;
+ };
+
+ export const usersJsonRepository:any ={
+    getUsers, getByIdUser, postUser, putUser, deleteUser
+ }
