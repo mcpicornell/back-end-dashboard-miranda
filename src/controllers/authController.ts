@@ -3,20 +3,22 @@ import passport from 'passport';
 import { Request, Response, NextFunction, Router } from 'express';
 
 export interface IUser {
-    id: number,
     email: string,
-    pwd?: string
 }
 
+export const authController = Router();
 
-
-export async function authController(req: Request, res: Response, next: NextFunction) {
+  authController.post("/", async(req: Request, res: Response, next: NextFunction) => {
+	const { email, password } = req.body;
+	console.log('Email:', email);
+  console.log('Password:', password);
 	passport.authenticate(
   	'local',
-  	async (err: any, user: IUser) => {
+	  { session: false },
+  	async (err: Error, user: IUser) => {
     	try {
       	if (err || !user) {
-        	const error = new Error('An error occurred.');
+        	const error = new Error('Invalid credentials');
         	return next(error);
       	}
 
@@ -26,7 +28,7 @@ export async function authController(req: Request, res: Response, next: NextFunc
         	async (error) => {
           	if (error) return next(error);
 
-          	const body = { id: user.id, email: user.email };
+          	const body = { email: user.email };
           	const token = jwt.sign({ user: body }, "CAMBIAME_ASAP");
 
           	return res.json({ token });
@@ -37,6 +39,6 @@ export async function authController(req: Request, res: Response, next: NextFunc
     	}
   	}
 	)(req, res, next);
-  };
+  });
 
 

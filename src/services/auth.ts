@@ -1,29 +1,32 @@
 import passport from 'passport';
-import passportJwt from 'passport-jwt'
-// const localStrategy = passportJwt.Strategy;
-// const JWTstrategy = passportJwt.Strategy;
-// const ExtractJWT = passportJwt.ExtractJwt;
+import { IUser } from '@src/controllers/authController';
+import { Strategy as LocalStrategy } from 'passport-local';
 
-const localStrategy = require('passport-local').Strategy;
+
 const JWTstrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
 
-
-
-
-
 passport.use(
-  'local',
-  new localStrategy(
+  new LocalStrategy(
 	{
   	usernameField: 'email',
   	passwordField: 'password'
 	},
-	async (email: any, password: any, done: any) => {
+
+	async (email: string, password: string, done: Function) => {
+        console.log('Email:', email);
+    	console.log('Password:', password);
   	try {
-    	if (email === 'admin@admin.com' && password === '1234')
-   		 return done(null, {email: "admin@admin.com"}, { message: 'Logged in Successfully' });	 
-  	return done(null, false, { message: 'Invalid credentials' });
+        
+    	 if (email === "admin@admin.com" && password === "1234"){
+			const user: IUser = {
+				email: email,
+			  };
+			  return done(null, user);
+		 }
+		 else{
+			return done(null, false);
+		 }
   	} catch (error) {
     	return done(error);
   	}
@@ -32,13 +35,14 @@ passport.use(
 );
 
 
+
 passport.use(
   new JWTstrategy(
 	{
   	secretOrKey: "CAMBIAME_ASAP",
-  	jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken('secret_token')
+  	jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
 	},
-	async (token: any, done: any) => {
+	async (token: any, done: Function) => {
   	try {
     	return done(null, token.user);
   	} catch (error) {
