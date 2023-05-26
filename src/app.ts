@@ -3,28 +3,23 @@ import express from 'express';
 import { roomsJsonController } from './controllers/roomsController';
 import { usersJsonController } from './controllers/usersController';
 import { bookingsJsonController } from './controllers/bookingsController';
+import { loginController } from './controllers/loginController';
+import { authController } from './controllers/authController';
 import cors from 'cors'
 // import '/auth'
 import passport from 'passport';
-
+// const auth = require('./auth/auth');
 const app = express();
 
 app.use(cors())
-// app.use(app.router);
-// routes.initialize(app);
 
-// require('auth');
+app.use("/login", authController) 
 
-// app.use('/rooms', passport.authenticate('jwt', { session: false }), roomsJsonRepository);
+app.use("/api/bookings",  passport.authenticate('jwt', { session: false }) ,bookingsJsonController)
 
+app.use("/api/rooms", passport.authenticate('jwt', { session: false }), roomsJsonController)
 
-// app.use("/login")
-
-app.use("/api/bookings", bookingsJsonController)
-
-app.use("/api/rooms", roomsJsonController)
-
-app.use("/api/users", usersJsonController)
+app.use("/api/users", passport.authenticate('jwt', { session: false }), usersJsonController)
 
 const PORT  = process.env.PORT || 3000;
 app.listen(PORT,  () => {

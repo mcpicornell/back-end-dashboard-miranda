@@ -1,32 +1,42 @@
-import { Request, Response, Router, NextFunction } from 'express';
-import passport from 'passport'; 
+import jwt from 'jsonwebtoken'
+import passport from 'passport';
+import { Request, Response, NextFunction, Router } from 'express';
 
-// const login = async (req: Request, res: Response, next: NextFunction) => {
-// 	passport.authenticate(
-//   	'login',
-//   	async (err, user, info) => {
-//     	try {
-//       	if (err || !user) {
-//         	const error = new Error('An error occurred.');
+export interface IUser {
+    id: number,
+    email: string,
+    pwd?: string
+}
 
-//         	return next(error);
-//       	}
 
-//       	req.login(
-//         	user,
-//         	{ session: false },
-//         	async (error) => {
-//           	if (error) return next(error);
 
-//           	const body = { _id: user._id, email: user.email };
-//           	const token = jwt.sign({ user: body }, ‘CAMBIAME_ASAP’);
+export async function authController(req: Request, res: Response, next: NextFunction) {
+	passport.authenticate(
+  	'local',
+  	async (err: any, user: IUser) => {
+    	try {
+      	if (err || !user) {
+        	const error = new Error('An error occurred.');
+        	return next(error);
+      	}
 
-//           	return res.json({ token });
-//         	}
-//       	);
-//     	} catch (error) {
-//       	return next(error);
-//     	}
-//   	}
-// 	)(req, res, next);
-//   };
+      	req.login(
+        	user,
+        	{ session: false },
+        	async (error) => {
+          	if (error) return next(error);
+
+          	const body = { id: user.id, email: user.email };
+          	const token = jwt.sign({ user: body }, "CAMBIAME_ASAP");
+
+          	return res.json({ token });
+        	}
+      	);
+    	} catch (error) {
+      	return next(error);
+    	}
+  	}
+	)(req, res, next);
+  };
+
+

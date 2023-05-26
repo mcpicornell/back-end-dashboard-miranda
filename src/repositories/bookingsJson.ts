@@ -1,8 +1,6 @@
 import fs from 'fs';
 import bookingsJSON from '../data/bookings.json';
-import usersJSON from '../data/users.json';
-import roomsJSON from '../data/rooms.json';
-import {IRooms, IBookings, IUsers} from '../features/interfaces';
+import {IBookings} from '../features/interfaces';
 
 export const bookings = bookingsJSON as IBookings[];
 
