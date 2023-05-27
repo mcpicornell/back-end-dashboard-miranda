@@ -1,8 +1,6 @@
 import passport from 'passport';
 import { IUser } from '@src/controllers/authController';
 import { Strategy as LocalStrategy } from 'passport-local';
-import dotenv from 'dotenv';
-import path from 'path';
 
 
 
