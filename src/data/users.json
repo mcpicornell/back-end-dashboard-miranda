@@ -6,7 +6,7 @@
         "email": "finnley@gmail.com",
         "startDate": "2021-01-01",
         "descriptionJob": "recepcionist",
-        "contact": "611111111",
+        "contact": 611111111,
         "status": "Active"
     },
     {
@@ -16,7 +16,7 @@
         "email": "leyton@gmail.com",
         "startDate": "2022-01-01",
         "descriptionJob": "cooker",
-        "contact": "622222222",
+        "contact": 622222222,
         "status": "Active"
     },
     {
@@ -26,7 +26,7 @@
         "email": "bushra@gmail.com",
         "startDate": "2023-01-01",
         "descriptionJob": "waitress",
-        "contact": "633333333",
+        "contact": 633333333,
         "status": "Inactive"
     }
 ]

@@ -7,10 +7,24 @@ import "./services/auth"
 import cors from 'cors'
 import passport from 'passport';
 import dotenv from 'dotenv';
+import mysql from 'mysql';
 
 dotenv.config()
 
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'admin',
+  password: 'admin',
+  database: 'miranda_db'
+})
 
+connection.connect((err) => {
+  if (err) {
+    console.error('Error connecting to database:', err);
+    return;
+  }
+  console.log('Connected to database!');
+});
 const app = express();
 app.use(express.json());
 app.use(cors())
