@@ -77,7 +77,7 @@
     "src/**/*.ts",
     "spec/**/*.ts",
     "build.ts"
-, "src/app.ts"  ],
+, "src/app.ts", "src/data/seed.js"  ],
   "exclude": [
     "src/public/"
   ],

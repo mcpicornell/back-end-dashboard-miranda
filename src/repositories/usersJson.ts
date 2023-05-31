@@ -13,12 +13,12 @@ const getUsers = async () => {
 };
 
 const getByIdUser = async (userId: number) => {
-    return users.find((element) => element.id === userId) || null;
+    return users.find((element) => element.userId === userId) || null;
 };
 
 const postUser = async (user: IUsers) => {
-    const id = users.length + 1;
-    user.id = id;
+    const userId = users.length + 1;
+    user.userId = userId;
     write([...users, user])
     return user;
 };
@@ -31,7 +31,7 @@ const putUser = async (userId: number, update: Partial<IUsers>) => {
     }
 
     const updatedRoom = { ...user, ...update };
-    const otherRooms = users.filter(element => element.id !== userId);
+    const otherRooms = users.filter(element => element.userId !== userId);
 
     const updatedRooms = [...otherRooms, updatedRoom];
     write(updatedRooms)
@@ -45,7 +45,7 @@ const deleteUser = async (userId: number) => {
         throw new Error('Not found')
     }
 
-    const updatedRoom = users.filter(element => element.id !== userId);
+    const updatedRoom = users.filter(element => element.userId !== userId);
 
     write(updatedRoom)
 

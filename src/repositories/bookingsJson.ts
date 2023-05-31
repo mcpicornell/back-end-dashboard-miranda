@@ -13,12 +13,12 @@ const getBookings = async () => {
 };
 
 const getByIdBooking = async (bookingId: number) => {
-    return bookings.find((element) => element.id === bookingId) || null;
+    return bookings.find((element) => element.bookingId === bookingId) || null;
 };
 
 const postBooking = async (booking: IBookings) => {
     const id = bookings.length + 1;
-    booking.id = id;
+    booking.bookingId = id;
     write([...bookings, booking])
     return booking;
 };
@@ -31,7 +31,7 @@ const putBooking = async (bookingId: number, update: Partial<IBookings>) => {
     }
 
     const updatedBooking = { ...booking, ...update };
-    const otherBookings = bookings.filter(element => element.id !== bookingId);
+    const otherBookings = bookings.filter(element => element.bookingId !== bookingId);
 
     const updatedBookings = [...otherBookings, updatedBooking];
     write(updatedBookings)
@@ -45,7 +45,7 @@ const deleteBooking = async (bookingId: number) => {
         throw new Error('Not found')
     }
 
-    const updatedBooking = bookings.filter(element => element.id !== bookingId);
+    const updatedBooking = bookings.filter(element => element.bookingId !== bookingId);
 
     write(updatedBooking)
 

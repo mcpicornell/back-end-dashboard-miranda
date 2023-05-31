@@ -10,14 +10,10 @@ export interface IUser {
 	email: string,
 }
 
-console.log(process.env.SECRET_KEY)
-
 export const authController = Router();
 
 authController.post("/", async (req: Request, res: Response, next: NextFunction) => {
 	const { email, password } = req.body;
-	console.log('Email:', email);
-	console.log('Password:', password);
 	passport.authenticate(
 		'local',
 		{ session: false },

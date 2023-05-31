@@ -13,12 +13,12 @@ const getRooms = async () => {
 };
 
 const getByIdRoom = async (roomId: number) => {
-    return rooms.find((element) => element.id === roomId) || null;
+    return rooms.find((element) => element.roomId === roomId) || null;
 };
 
 const postRoom = async (room: IRooms) => {
-    const id = rooms.length + 1;
-    room.id = id;
+    const roomId = rooms.length + 1;
+    room.roomId = roomId;
     write([...rooms, room])
     return room;
 };
@@ -31,7 +31,7 @@ const putRoom = async (roomId: number, update: Partial<IRooms>) => {
     }
 
     const updatedRoom = { ...room, ...update };
-    const otherRooms = rooms.filter(element => element.id !== roomId);
+    const otherRooms = rooms.filter(element => element.roomId !== roomId);
 
     const updatedRooms = [...otherRooms, updatedRoom];
     write(updatedRooms)
@@ -45,7 +45,7 @@ const deleteRoom = async (roomId: number) => {
         throw new Error('Not found')
     }
 
-    const updatedRoom = rooms.filter(element => element.id !== roomId);
+    const updatedRoom = rooms.filter(element => element.roomId !== roomId);
 
     write(updatedRoom)
 

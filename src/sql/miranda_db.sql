@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-05-2023 a las 18:01:20
+-- Tiempo de generación: 31-05-2023 a las 21:36:57
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -28,14 +28,14 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `bookings` (
-  `bookingsId` int(11) NOT NULL,
-  `guest` text NOT NULL,
+  `bookingId` int(11) NOT NULL,
+  `guest` varchar(50) NOT NULL,
   `orderDate` date NOT NULL,
   `checkIn` date NOT NULL,
   `checkOut` date NOT NULL,
   `specialRequest` text NOT NULL,
-  `roomType` int(11) NOT NULL,
-  `status` text NOT NULL
+  `roomId` int(11) NOT NULL,
+  `status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -46,11 +46,12 @@ CREATE TABLE `bookings` (
 
 CREATE TABLE `rooms` (
   `roomId` int(11) NOT NULL,
-  `status` text NOT NULL,
+  `roomName` varchar(30) NOT NULL,
+  `status` varchar(15) NOT NULL,
   `offerPrice` int(11) NOT NULL,
   `price` int(11) NOT NULL,
   `roomNumber` int(11) NOT NULL,
-  `roomType` text NOT NULL,
+  `roomType` varchar(15) NOT NULL,
   `amenities` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`amenities`)),
   `photos` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`photos`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -62,15 +63,23 @@ CREATE TABLE `rooms` (
 --
 
 CREATE TABLE `users` (
-  `usersId` int(11) NOT NULL,
-  `name` text NOT NULL,
+  `userId` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
   `photo` text NOT NULL,
-  `email` text NOT NULL,
+  `email` varchar(50) NOT NULL,
   `startDate` date NOT NULL,
   `descriptionJob` text NOT NULL,
-  `contact` int(11) NOT NULL,
-  `status` text NOT NULL
+  `contact` int(20) NOT NULL,
+  `status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `users`
+--
+
+INSERT INTO `users` (`userId`, `name`, `photo`, `email`, `startDate`, `descriptionJob`, `contact`, `status`) VALUES
+(1, 'Finnley Hopfman', 'https://randomuser.me/api/portraits/men/59.jpg', 'finnley@gmail.com', '2021-01-01', 'recepcionist', 611111111, 'Active'),
+(58, 'Finnley Kaufman', 'https://randomuser.me/api/portraits/men/59.jpg', 'finnley@gmail.com', '2021-01-01', 'recepcionist', 611111111, 'Active');
 
 --
 -- Índices para tablas volcadas
@@ -80,8 +89,8 @@ CREATE TABLE `users` (
 -- Indices de la tabla `bookings`
 --
 ALTER TABLE `bookings`
-  ADD PRIMARY KEY (`bookingsId`),
-  ADD KEY `ForeignKey` (`roomType`);
+  ADD PRIMARY KEY (`bookingId`),
+  ADD KEY `ForeignKey` (`roomId`);
 
 --
 -- Indices de la tabla `rooms`
@@ -93,7 +102,7 @@ ALTER TABLE `rooms`
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`usersId`);
+  ADD PRIMARY KEY (`userId`);
 
 --
 -- Restricciones para tablas volcadas
@@ -103,7 +112,7 @@ ALTER TABLE `users`
 -- Filtros para la tabla `bookings`
 --
 ALTER TABLE `bookings`
-  ADD CONSTRAINT `ForeignKey` FOREIGN KEY (`roomType`) REFERENCES `rooms` (`roomId`);
+  ADD CONSTRAINT `ForeignKey` FOREIGN KEY (`roomId`) REFERENCES `rooms` (`roomId`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

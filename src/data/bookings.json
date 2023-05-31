@@ -1,6 +1,6 @@
 [
     {
-        "id": 1,
+        "bookingId": 1,
         "guest": "Jim Stevenson",
         "orderDate": "2021-04-01",
         "checkIn": "2021-05-01",
@@ -10,7 +10,7 @@
         "status": "Check Out"
     },
     {   
-        "id": 2,
+        "bookingId": 2,
         "guest": "Euan Anderson",
         "orderDate": "2022-04-01",
         "checkIn": "2022-05-01",
@@ -20,7 +20,7 @@
         "status": "Check In"
     },
     {
-        "id": 3,
+        "bookingId": 3,
         "guest": "Drew Stanton",
         "orderDate": "2023-04-01",
         "checkIn": "2023-05-01",

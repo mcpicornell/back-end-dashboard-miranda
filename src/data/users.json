@@ -1,6 +1,6 @@
 [
     {
-        "id": 1,
+        "userId": 1,
         "name": "Finnley Kaufman",
         "photo": "https://randomuser.me/api/portraits/men/59.jpg",
         "email": "finnley@gmail.com",
@@ -10,7 +10,7 @@
         "status": "Active"
     },
     {
-        "id": 2,
+        "userId": 2,
         "name": "Leyton Grimes",
         "photo": "https://randomuser.me/api/portraits/men/43.jpg",
         "email": "leyton@gmail.com",
@@ -20,7 +20,7 @@
         "status": "Active"
     },
     {
-        "id": 3,
+        "userId": 3,
         "name": "Bushra Cox",
         "photo": "https://randomuser.me/api/portraits/women/9.jpg",
         "email": "bushra@gmail.com",

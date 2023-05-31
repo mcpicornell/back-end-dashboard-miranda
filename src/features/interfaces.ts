@@ -1,6 +1,6 @@
 
 export interface IRooms {
-    id: number,
+    roomId: number,
     roomName: string,
     status: string
     offerPrice: number,
@@ -12,10 +12,10 @@ export interface IRooms {
 }
 
 export interface IUsers {
-    contact: string,
+    contact: number,
     descriptionJob: string,
     email: string,
-    id: number,
+    userId: number,
     name: string,
     photo: string,
     startDate: string,
@@ -25,10 +25,10 @@ export interface IBookings {
     guest: string,
     orderDate: string,
     checkIn: string,
-    id: number,
+    bookingId: number,
     checkOut: string,
     specialRequest: string,
-    roomType: IRooms,
+    roomId: number,
     status: string
 }
 export interface IContacts {

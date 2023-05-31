@@ -17,8 +17,6 @@ passport.use(
 		},
 
 		async (email: string, password: string, done: Function) => {
-			console.log('Email:', email);
-			console.log('Password:', password);
 			try {
 
 				if (email === "admin@admin.com" && password === "1234") {
@@ -37,12 +35,11 @@ passport.use(
 	)
 );
 
-console.log(process.env.SECRET_KEY)
 
 passport.use(
-	new JWTstrategy( 
+	new JWTstrategy(
 		{
-			
+
 			secretOrKey: process.env.SECRET_KEY,
 			jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
 		},

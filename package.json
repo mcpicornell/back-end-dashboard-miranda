@@ -12,7 +12,7 @@
     "test:no-reloading": "npx ts-node --files -r tsconfig-paths/register ./spec",
     "ts-dev": "ts-node-dev src/app.ts",
     "test-j": "jest",
-    "seed": "seed src/data/seed.ts"
+    "seed": "node seed src/data/seed.js"
   },
   "nodemonConfig": {
     "watch": [
@@ -64,10 +64,13 @@
     "mongoose": "^5.9.15",
     "morgan": "^1.10.0",
     "mysql": "github:mysqljs/mysql",
+    "mysql2": "^3.3.3",
+    "mysql2-promise": "^0.1.4",
     "node-pre-gyp": "^0.17.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.1",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "seed-js": "^0.0.11"
   },
   "execMap": {
     "ts": "ts-node"

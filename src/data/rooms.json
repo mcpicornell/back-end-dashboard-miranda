@@ -1,6 +1,6 @@
 [
     {
-        "id": 1,
+        "roomId": 1,
         "roomName": "Deluxe A-1",
         "status": "Booked",
         "offerPrice": 100,
@@ -11,7 +11,7 @@
         "photos": ["https://images.unspla.com/photo-1605346434674-a440ca4dc4c0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"]
     },
     {
-        "id": 2,
+        "roomId": 2,
         "roomName": "Deluxe B-1",
         "status": "Avaliable",
         "offerPrice": 100,
@@ -23,7 +23,7 @@
         
     },
     {
-        "id": 3,
+        "roomId": 3,
         "roomName": "Deluxe C-3",
         "status": "Avaliable",
         "offerPrice": 100,
@@ -34,7 +34,7 @@
         "photos": ["https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"]
     },
     {
-        "id": 4,
+        "roomId": 4,
         "roomName": "Deluxe D-4",
         "status": "Booked",
         "offerPrice": 100,
