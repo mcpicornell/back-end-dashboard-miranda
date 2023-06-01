@@ -1,12 +1,20 @@
 
+enum roomType {
+    "Single","Double Bed","Double Superior","Suite"
+}
+
+enum bookingStatus {
+    "Check In","Check Out","In Progress"
+}
+
 export interface IRooms {
     roomId: number,
     roomName: string,
-    status: string
+    isAvaliable: boolean
     offerPrice: number,
     price: number,
     roomNumber: number,
-    roomType: string,
+    roomType: roomType,
     amenities: string[],
     photos: string[]
 }
@@ -19,7 +27,7 @@ export interface IUsers {
     name: string,
     photo: string,
     startDate: string,
-    status: string
+    isActive: boolean
 }
 export interface IBookings {
     guest: string,
@@ -29,7 +37,7 @@ export interface IBookings {
     checkOut: string,
     specialRequest: string,
     roomId: number,
-    status: string
+    status: bookingStatus
 }
 export interface IContacts {
     id: number,

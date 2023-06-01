@@ -7,7 +7,7 @@
         "startDate": "2021-01-01",
         "descriptionJob": "recepcionist",
         "contact": 611111111,
-        "status": "Active"
+        "isActive": true
     },
     {
         "userId": 2,
@@ -17,7 +17,7 @@
         "startDate": "2022-01-01",
         "descriptionJob": "cooker",
         "contact": 622222222,
-        "status": "Active"
+        "isActive": true
     },
     {
         "userId": 3,
@@ -27,6 +27,6 @@
         "startDate": "2023-01-01",
         "descriptionJob": "waitress",
         "contact": 633333333,
-        "status": "Inactive"
+        "isActive": false
     }
 ]

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-05-2023 a las 21:36:57
+-- Tiempo de generación: 01-06-2023 a las 12:39:32
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -34,9 +34,16 @@ CREATE TABLE `bookings` (
   `checkIn` date NOT NULL,
   `checkOut` date NOT NULL,
   `specialRequest` text NOT NULL,
-  `roomId` int(11) NOT NULL,
+  `roomId` int(255) NOT NULL,
   `status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `bookings`
+--
+
+INSERT INTO `bookings` (`bookingId`, `guest`, `orderDate`, `checkIn`, `checkOut`, `specialRequest`, `roomId`, `status`) VALUES
+(1, 'Jim Stevenson', '2021-04-01', '2021-05-01', '2021-06-01', 'Request from Jim', 1, 'Check Out');
 
 -- --------------------------------------------------------
 
@@ -45,9 +52,9 @@ CREATE TABLE `bookings` (
 --
 
 CREATE TABLE `rooms` (
-  `roomId` int(11) NOT NULL,
+  `roomId` int(255) NOT NULL,
   `roomName` varchar(30) NOT NULL,
-  `status` varchar(15) NOT NULL,
+  `isAvaliable` tinyint(1) NOT NULL,
   `offerPrice` int(11) NOT NULL,
   `price` int(11) NOT NULL,
   `roomNumber` int(11) NOT NULL,
@@ -55,6 +62,14 @@ CREATE TABLE `rooms` (
   `amenities` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`amenities`)),
   `photos` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`photos`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `rooms`
+--
+
+INSERT INTO `rooms` (`roomId`, `roomName`, `isAvaliable`, `offerPrice`, `price`, `roomNumber`, `roomType`, `amenities`, `photos`) VALUES
+(1, 'Deluxe A-1', 0, 100, 145, 101, 'Single Bed', '[\"suite bath\",\"suite bath\",\"suite bath\",\"suite bath\"]', '[\"https://images.unspla.com/photo-1605346434674-a440ca4dc4c0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80\"]'),
+(8, 'Deluxe A-1', 0, 100, 145, 101, 'Single Bed', '[\"suite bath\",\"suite bath\",\"suite bath\",\"suite bath\"]', '[\"https://images.unspla.com/photo-1605346434674-a440ca4dc4c0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80\"]');
 
 -- --------------------------------------------------------
 
@@ -70,16 +85,16 @@ CREATE TABLE `users` (
   `startDate` date NOT NULL,
   `descriptionJob` text NOT NULL,
   `contact` int(20) NOT NULL,
-  `status` varchar(10) NOT NULL
+  `isActive` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`userId`, `name`, `photo`, `email`, `startDate`, `descriptionJob`, `contact`, `status`) VALUES
-(1, 'Finnley Hopfman', 'https://randomuser.me/api/portraits/men/59.jpg', 'finnley@gmail.com', '2021-01-01', 'recepcionist', 611111111, 'Active'),
-(58, 'Finnley Kaufman', 'https://randomuser.me/api/portraits/men/59.jpg', 'finnley@gmail.com', '2021-01-01', 'recepcionist', 611111111, 'Active');
+INSERT INTO `users` (`userId`, `name`, `photo`, `email`, `startDate`, `descriptionJob`, `contact`, `isActive`) VALUES
+(1, 'Finnley Hopfman', 'https://randomuser.me/api/portraits/men/59.jpg', 'finnley@gmail.com', '2021-01-01', 'recepcionist', 611111111, 0),
+(58, 'Finnley Kaufman', 'https://randomuser.me/api/portraits/men/59.jpg', 'finnley@gmail.com', '2021-01-01', 'recepcionist', 611111111, 0);
 
 --
 -- Índices para tablas volcadas

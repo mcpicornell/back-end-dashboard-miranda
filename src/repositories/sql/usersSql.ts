@@ -27,9 +27,9 @@ const getByIdUser = async (userId: number) => {
 const createUser = async (roomObj: IUsers) => {
 
     try {
-        const query = 'INSERT INTO users (userId, name, photo, email, startDate, descriptionJob, contact, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-        const { userId, name, photo, email, startDate, descriptionJob, contact, status } = roomObj;
-        const params = [userId, name, photo, email, startDate, descriptionJob, contact, status];
+        const query = 'INSERT INTO users (userId, name, photo, email, startDate, descriptionJob, contact, isActive) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+        const { userId, name, photo, email, startDate, descriptionJob, contact, isActive } = roomObj;
+        const params = [userId, name, photo, email, startDate, descriptionJob, contact, isActive];
         const result = await queryDb(query, params);
         return result;
     } catch (error) {
@@ -42,7 +42,7 @@ const updateUser = async (userId: number, updatedData: IUsers) => {
     try {
         
       const query =
-        'UPDATE users SET name = ?, photo = ?, email = ?, startDate = ?, descriptionJob = ?, contact = ?, status = ? WHERE userId = ?';
+        'UPDATE users SET name = ?, photo = ?, email = ?, startDate = ?, descriptionJob = ?, contact = ?, isActive = ? WHERE userId = ?';
   
       const params = [
         userId,
@@ -52,7 +52,7 @@ const updateUser = async (userId: number, updatedData: IUsers) => {
         updatedData.startDate,
         updatedData.descriptionJob,
         updatedData.contact,
-        updatedData.status,
+        updatedData.isActive,
         
       ];
       const [rows] = await queryDb(query, params);
