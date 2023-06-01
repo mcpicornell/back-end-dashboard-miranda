@@ -6,7 +6,8 @@ import { authController } from './controllers/authController';
 import "./services/auth"
 import cors from 'cors'
 import dotenv from 'dotenv';
-
+import bcrypt from 'bcrypt';
+import passport from 'passport';
 
 dotenv.config()
 

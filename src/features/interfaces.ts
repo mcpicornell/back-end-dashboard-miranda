@@ -1,11 +1,5 @@
 
-enum roomType {
-    "Single","Double Bed","Double Superior","Suite"
-}
 
-enum bookingStatus {
-    "Check In","Check Out","In Progress"
-}
 
 export interface IRooms {
     roomId: number,
@@ -14,7 +8,7 @@ export interface IRooms {
     offerPrice: number,
     price: number,
     roomNumber: number,
-    roomType: roomType,
+    roomType: string,
     amenities: string[],
     photos: string[]
 }
@@ -37,7 +31,7 @@ export interface IBookings {
     checkOut: string,
     specialRequest: string,
     roomId: number,
-    status: bookingStatus
+    status: string
 }
 export interface IContacts {
     id: number,

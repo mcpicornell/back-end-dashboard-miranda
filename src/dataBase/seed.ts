@@ -2,101 +2,108 @@ import { queryDb } from "./mysqlConnector";
 import { faker } from '@faker-js/faker';
 import { IBookings, IUsers, IRooms } from "@src/features/interfaces";
 import { getRooms } from "@src/controllers/roomsController";
+import { v4 as uuidv4 } from 'uuid';
 
 const generateSeedData = () => {
     const users = [] as IUsers[];
     const bookings = [] as IBookings[];
     const rooms = [] as IRooms[];
 
-    // Generar datos ficticios para usuarios
-    for (let i = 0; i < 10; i++) {
-        try{
+    const generateUniqueId = () => {
+        const minId = 1;
+        const maxId = 1000000;
+        return Math.floor(Math.random() * (maxId - minId + 1)) + minId;
+    };
+
+
+    for (let i = 0; i < 5; i++) {
+        try {
             const user = {
-                userId:faker.number.int({min:100, max:500}), 
-                name: faker.internet.userName(), 
-                photo: faker.image.avatar(), 
-                email: faker.internet.email(), 
-                startDate: faker.date.past().toString(), 
-                descriptionJob: faker.lorem.sentence(), 
-                contact: faker.number.int({min:60000000,max:79999999}), 
+                userId: generateUniqueId(),
+                name: faker.internet.userName(),
+                photo: faker.image.avatar(),
+                email: faker.internet.email(),
+                startDate: faker.date.past().toString(),
+                descriptionJob: faker.lorem.sentence(),
+                contact: faker.number.int({ min: 60000000, max: 79999999 }),
                 isActive: faker.datatype.boolean()
             };
             users.push(user);
         }
-        catch(error){
+        catch (error) {
             console.log(error)
             throw error
         }
     }
+    let uniqueIdCounter = generateUniqueId();
+    for (let i = 0; i < 5; i++) {
 
-    for (let i = 0; i < 10; i++) {
-        try{
+        try {
             const room = {
-                roomId:faker.number.int({min:100, max:500}), 
-                roomName: faker.string.alphanumeric(), 
-                isAvaliable: faker.datatype.boolean(), 
-                price: faker.number.int({min:500, max:1000}), 
-                offerPrice: faker.number.int({min:0, max: 499}),
-                roomNumber: faker.number.int({min:1, max: 1000}), 
-                roomType: faker.number.int({min:0, max:3}), 
-                amenities: [faker.internet.userName(), faker.internet.userName(), faker.internet.userName(), faker.internet.userName()], 
+                roomId: uniqueIdCounter,
+                roomName: faker.string.alphanumeric(),
+                isAvaliable: faker.datatype.boolean(),
+                price: faker.number.int({ min: 500, max: 1000 }),
+                offerPrice: faker.number.int({ min: 0, max: 499 }),
+                roomNumber: faker.number.int({ min: 1, max: 1000 }),
+                roomType: faker.string.fromCharacters(['Single', 'Double Bed', 'Double Superior', 'Suite']),
+                amenities: [faker.internet.userName(), faker.internet.userName(), faker.internet.userName(), faker.internet.userName()],
                 photos: [faker.image.url(), faker.image.url(), faker.image.url()]
             };
-            rooms.push(room);
 
             const booking = {
-                bookingId:faker.number.int({min:100, max:500}), 
-                guest: faker.internet.userName(), 
-                orderDate: faker.date.past({years: 2023}).toString(), 
-                checkIn: faker.date.between({from: 2022-1, to: 2022-12}).toString(), 
-                checkOut: faker.date.between({from: 2023-1-1, to: 2023-6-1}).toString(),
-                specialRequest:  faker.lorem.sentences(), 
-                roomId: room.roomId, 
-                status: faker.number.int({min:0, max:2}), 
+                bookingId: generateUniqueId(),
+                guest: faker.internet.userName(),
+                orderDate: faker.date.past({ years: 2023 }).toString(),
+                checkIn: faker.date.past().toString(),
+                checkOut: faker.date.future().toString(),
+                specialRequest: faker.lorem.sentences(),
+                roomId: uniqueIdCounter,
+                status: faker.string.fromCharacters(['Check In', 'Check Out', 'In Progress']),
             };
+
+            rooms.push(room);
             bookings.push(booking);
+            uniqueIdCounter++;
         }
-        catch(error){
+        catch (error) {
             console.log(error)
             throw error
         }
-        
+
     }
 
     users.forEach(user => {
         try {
-            const query = 'INSERT INTO users SET ?';
-            const params = [user]
-            queryDb(query, params)
+            const query = 'INSERT INTO users (userId, name, photo, email, startDate, descriptionJob, contact, isActive) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+            const params = [user.userId, user.name, user.photo, user.email, user.startDate, user.descriptionJob, user.contact, user.isActive];
+            queryDb(query, params);
+        } catch (error) {
+            console.log(error);
+            throw error;
         }
-        catch (error) {
-            console.log(error)
-            throw error
-        }
-    })
+    });
 
-    
+
     bookings.forEach(booking => {
         try {
-            const query = 'INSERT INTO bookings SET ?';
-            const params = [booking]
-            queryDb(query, params)
+            const query = 'INSERT INTO bookings (bookingId, guest, orderDate, checkIn, checkOut, specialRequest, roomId, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+            const params = [booking.bookingId, booking.guest, booking.orderDate, booking.checkIn, booking.checkOut, booking.specialRequest, booking.roomId, booking.status];
+            queryDb(query, params);
+        } catch (error) {
+            console.log(error);
+            throw error;
         }
-        catch (error) {
-            console.log(error)
-            throw error
-        }
-    })
+    });
     rooms.forEach(room => {
         try {
-            const query = 'INSERT INTO rooms SET ?';
-            const params = [room]
-            queryDb(query, params)
+            const query = 'INSERT INTO rooms (roomId, roomName, isAvaliable, offerPrice, price, roomNumber, roomType, amenities, photos) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            const params = [room.roomId, room.roomName, room.isAvaliable, room.offerPrice, room.price, room.roomNumber, room.roomType, JSON.stringify(room.amenities), JSON.stringify(room.photos)];
+            queryDb(query, params);
+        } catch (error) {
+            console.log(error);
+            throw error;
         }
-        catch (error) {
-            console.log(error)
-            throw error
-        }
-    })
+    });
 }
 generateSeedData()

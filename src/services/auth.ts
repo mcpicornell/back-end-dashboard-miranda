@@ -1,12 +1,9 @@
 import passport from 'passport';
-import { IUser } from '@src/controllers/authController';
 import { Strategy as LocalStrategy } from 'passport-local';
-
-
-
+import bcrypt from 'bcrypt';
+import { queryDb } from '../dataBase/mysqlConnector';
 const JWTstrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
-
 
 
 passport.use(
@@ -20,12 +17,25 @@ passport.use(
 			try {
 
 				if (email === "admin@admin.com" && password === "1234") {
-					const user: IUser = {
-						email: email,
-					};
-					return done(null, user);
-				}
-				else {
+
+					bcrypt.hash(password, 10, (error, hash) => {
+						if (error) {
+							return done(error)
+						}
+						else {
+							const query = 'INSERT INTO superUser (email, password) VALUES (?, ?)';
+							const params = [email, hash]
+							queryDb(query, params)
+								.then(() => {
+									const user = {
+										email: email
+									};
+									return done(null, user);
+								})
+								.catch(error => done(error));
+						}
+					});
+				} else {
 					return done(null, false);
 				}
 			} catch (error) {
@@ -39,7 +49,6 @@ passport.use(
 passport.use(
 	new JWTstrategy(
 		{
-
 			secretOrKey: process.env.SECRET_KEY,
 			jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
 		},
