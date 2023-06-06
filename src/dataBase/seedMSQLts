@@ -1,7 +1,6 @@
 import { queryDb } from "./mysqlConnector";
 import { faker } from '@faker-js/faker';
-import { IBookings, IUsers, IRooms } from "@src/features/interfaces";
-import { getRooms } from "@src/controllers/roomsController";
+import { IBookings, IUsers, IRooms } from "../features/interfaces";
 import { v4 as uuidv4 } from 'uuid';
 
 const generateSeedData = () => {
@@ -16,7 +15,7 @@ const generateSeedData = () => {
     };
 
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 50; i < 76; i++) {
         try {
             const user = {
                 userId: generateUniqueId(),
@@ -34,13 +33,13 @@ const generateSeedData = () => {
             console.log(error)
             throw error
         }
-    }
-    let uniqueIdCounter = generateUniqueId();
-    for (let i = 0; i < 5; i++) {
+    };
+    let idRoomCounter = 101;
+    for (let i = 50; i < 76; i++) {
 
         try {
             const room = {
-                roomId: uniqueIdCounter,
+                roomId: idRoomCounter,
                 roomName: faker.string.alphanumeric(),
                 isAvaliable: faker.datatype.boolean(),
                 price: faker.number.int({ min: 500, max: 1000 }),
@@ -58,20 +57,19 @@ const generateSeedData = () => {
                 checkIn: faker.date.past().toString(),
                 checkOut: faker.date.future().toString(),
                 specialRequest: faker.lorem.sentences(),
-                roomId: uniqueIdCounter,
+                roomId: idRoomCounter,
                 status: faker.string.fromCharacters(['Check In', 'Check Out', 'In Progress']),
             };
-
             rooms.push(room);
             bookings.push(booking);
-            uniqueIdCounter++;
+            idRoomCounter++;
         }
         catch (error) {
             console.log(error)
             throw error
         }
 
-    }
+    };
 
     users.forEach(user => {
         try {
@@ -85,25 +83,35 @@ const generateSeedData = () => {
     });
 
 
-    bookings.forEach(booking => {
+    const insertRoomsAndBookings = async () => {
         try {
-            const query = 'INSERT INTO bookings (bookingId, guest, orderDate, checkIn, checkOut, specialRequest, roomId, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-            const params = [booking.bookingId, booking.guest, booking.orderDate, booking.checkIn, booking.checkOut, booking.specialRequest, booking.roomId, booking.status];
-            queryDb(query, params);
-        } catch (error) {
-            console.log(error);
+            await Promise.all(rooms.map(async (room) => {
+                try {
+                    const query = 'INSERT INTO rooms (roomId, roomName, isAvaliable, offerPrice, price, roomNumber, roomType, amenities, photos) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+                    const params = [room.roomId, room.roomName, room.isAvaliable, room.offerPrice, room.price, room.roomNumber, room.roomType, JSON.stringify(room.amenities), JSON.stringify(room.photos)];
+                    await queryDb(query, params);
+                } catch (error) {
+                    console.log(error);
+                    throw error;
+                }
+            }));
+            bookings.forEach(async (booking) => {
+                try {
+                    const query = 'INSERT INTO bookings (bookingId, guest, orderDate, checkIn, checkOut, specialRequest, roomId, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+                    const params = [booking.bookingId, booking.guest, booking.orderDate, booking.checkIn, booking.checkOut, booking.specialRequest, booking.roomId, booking.status];
+                    await queryDb(query, params);
+                } catch (error) {
+                    console.log(error);
+                    throw error;
+                }
+            });
+        }
+        catch (error) {
+            console.log(error)
             throw error;
         }
-    });
-    rooms.forEach(room => {
-        try {
-            const query = 'INSERT INTO rooms (roomId, roomName, isAvaliable, offerPrice, price, roomNumber, roomType, amenities, photos) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-            const params = [room.roomId, room.roomName, room.isAvaliable, room.offerPrice, room.price, room.roomNumber, room.roomType, JSON.stringify(room.amenities), JSON.stringify(room.photos)];
-            queryDb(query, params);
-        } catch (error) {
-            console.log(error);
-            throw error;
-        }
-    });
-}
+    };
+
+insertRoomsAndBookings()
+};
 generateSeedData()

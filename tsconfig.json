@@ -77,7 +77,7 @@
     "src/**/*.ts",
     "spec/**/*.ts",
     "build.ts"
-, "src/app.ts", "src/data/seed.js"  ],
+, "src/app.ts", "src/data/seed.js", "src/dataBase/seed.MSQLts"  ],
   "exclude": [
     "src/public/"
   ],

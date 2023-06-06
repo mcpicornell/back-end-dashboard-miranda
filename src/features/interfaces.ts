@@ -1,5 +1,5 @@
-
-
+import { RowDataPacket } from "mysql2"
+import mongoose from 'mongoose'
 
 export interface IRooms {
     roomId: number,
