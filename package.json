@@ -12,7 +12,7 @@
     "test:no-reloading": "npx ts-node --files -r tsconfig-paths/register ./spec",
     "ts-dev": "ts-node-dev src/app.ts",
     "test-j": "jest",
-    "seed": "ts-node-dev src/dataBase/seed.ts"
+    "seedM": "ts-node-dev src/dataBase/seedMongoDB.ts"
   },
   "nodemonConfig": {
     "watch": [
@@ -56,7 +56,7 @@
     "body-parser": "^1.19.0",
     "cassandra-driver": "^4.6.4",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
+    "dotenv": "^16.1.4",
     "esm-module-alias": "^2.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^8.5.1",

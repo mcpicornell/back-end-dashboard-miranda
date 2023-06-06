@@ -1,7 +1,7 @@
 import { Request, Response, Router } from 'express';
-import { bookingsJsonRepository } from '../repositories/bookingsJson';
-import { IBookings } from '../features/interfaces'
-import { bookingsSqlRepository } from '../repositories/sql/bookingsSql'
+import { bookingsJsonRepository } from '../../repositories/bookingsJson';
+import { IBookings } from '../../features/interfaces'
+import { bookingsSqlRepository } from '../../repositories/sql/bookingsSql'
 export const bookingsController = Router();
 
 // const {getBookings, deleteBookings, postBooking, putBooking, getByIdBooking} = bookingsJsonRepository;

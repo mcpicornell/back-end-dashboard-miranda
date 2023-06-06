@@ -1,10 +1,9 @@
-import mongoose from 'mongoose'
+import mongoose, {Document} from 'mongoose';
 
-export interface IBookings {
+ export interface IBooking extends Document{
     guest: string,
     orderDate: string,
     checkIn: string,
-    bookingId: number,
     checkOut: string,
     specialRequest: string,
     roomId: number,
@@ -41,13 +40,12 @@ const bookingSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Room'
         }
-    ]
-        
-    ,
+    ],
     status: {
+        type: String,
         enum: ["Check In", "Check Out", "In Progress"],
         required: true
     }
-  });
+});
 
-  export const Booking = mongoose.model('Booking', bookingSchema);
+export const Booking = mongoose.model<IBooking>('Booking', bookingSchema);

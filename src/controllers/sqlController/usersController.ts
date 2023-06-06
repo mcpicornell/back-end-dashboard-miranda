@@ -1,7 +1,7 @@
 import { Request, Response, Router } from 'express';
-import { usersJsonRepository } from '../repositories/usersJson';
-import { IUsers } from '../features/interfaces'
-import {usersSqlRepository} from '../repositories/sql/usersSql'
+import { usersJsonRepository } from '../../repositories/usersJson';
+import { IUsers } from '../../features/interfaces'
+import {usersSqlRepository} from '../../repositories/sql/usersSql'
 
 export const usersController = Router();
 

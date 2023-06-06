@@ -1,13 +1,19 @@
 import express from 'express';
-import { roomsController } from './controllers/roomsController';
-import { usersController } from './controllers/usersController';
-import { bookingsController } from './controllers/bookingsController';
-import { authController } from './controllers/authController';
-import "./services/auth"
 import cors from 'cors'
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import passport from 'passport';
+import "./services/auth";
+
+// import { roomsController } from './controllers/roomsController';
+// import { usersController } from './controllers/usersController';
+// import { bookingsController } from './controllers/bookingsController';
+// import { authController } from './controllers/authController';
+import { roomsController } from './controllers/mongoController/roomsController';
+import { usersController } from './controllers/mongoController/usersController';
+import { bookingsController } from './controllers/mongoController/bookingsController';
+import { authController } from './controllers/authController';
+
 
 dotenv.config()
 
@@ -19,6 +25,7 @@ app.use("/login", authController)
 // app.use("/api/bookings",passport.authenticate('jwt', { session: false }), bookingsController)
 // app.use("/api/rooms", passport.authenticate('jwt', { session: false }), roomsJsonController)
 // app.use("/api/users", passport.authenticate('jwt', { session: false }), usersJsonController)
+
 app.use("/api/bookings", bookingsController)
 app.use("/api/rooms", roomsController)
 app.use("/api/users", usersController)

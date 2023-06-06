@@ -1,5 +1,4 @@
 import { RowDataPacket } from "mysql2"
-import mongoose from 'mongoose'
 
 export interface IRooms {
     roomId: number,
@@ -13,7 +12,7 @@ export interface IRooms {
     photos: string[]
 }
 
-export interface IUsers {
+export interface IUsers{
     contact: number,
     descriptionJob: string,
     email: string,
@@ -23,7 +22,7 @@ export interface IUsers {
     startDate: string,
     isActive: boolean
 }
-export interface IBookings {
+export interface IBookings{
     guest: string,
     orderDate: string,
     checkIn: string,

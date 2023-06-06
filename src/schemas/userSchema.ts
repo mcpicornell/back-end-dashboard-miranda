@@ -1,7 +1,16 @@
-import { IUser } from '@src/controllers/authController';
-import mongoose from 'mongoose'
+import { Document, Model, Schema, model } from 'mongoose';
 
-const userSchema = new mongoose.Schema({
+ export interface IUser extends Document{
+    contact: number,
+    descriptionJob: string,
+    email: string,
+    name: string,
+    photo: string,
+    startDate: string,
+    isActive: boolean
+}
+
+const userSchema: Schema<IUser> = new Schema<IUser>({
     contact: {
         type: Number,
         required: true
@@ -12,10 +21,6 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: true
-    },
-    userId: {
-        type: Number,
         required: true
     },
     name: {
@@ -34,6 +39,6 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         required: true
     }
-  });
+});
 
-  export const User = mongoose.model('User', userSchema);
+export const User: Model<IUser> = model<IUser>('User', userSchema);
