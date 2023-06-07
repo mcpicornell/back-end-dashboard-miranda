@@ -2,11 +2,13 @@ import { faker } from '@faker-js/faker';
 import { User } from "../schemas/userSchema";
 import Room  from "../schemas/roomSchema";
 import { Booking } from "../schemas/bookingSchema";
+import { connectMongoDB, disconnectMongoDB } from './mongoConnector';
 
 const generateSeedData = async () => {
-
+    await connectMongoDB();
     for (let i = 50; i < 76; i++) {
         try {
+          
             const user = new User( {
                 name: faker.internet.userName(),
                 photo: faker.image.avatar(),
@@ -39,6 +41,7 @@ const generateSeedData = async () => {
                 photos: [faker.image.url(), faker.image.url(), faker.image.url()]
             });
             await room.save();
+            const roomId = room._id;
 
             const booking = new Booking ({
                 guest: faker.internet.userName(),
@@ -46,7 +49,7 @@ const generateSeedData = async () => {
                 checkIn: faker.date.past().toString(),
                 checkOut: faker.date.future().toString(),
                 specialRequest: faker.lorem.sentences(),
-                roomId: idRoomCounter,
+                roomId: roomId,
                 status: faker.string.fromCharacters(['Check In', 'Check Out', 'In Progress']),
             });
             await booking.save()
@@ -57,6 +60,7 @@ const generateSeedData = async () => {
         }
 
     };
+    await disconnectMongoDB();
 };
 
 const deleteAllRooms = async () => {

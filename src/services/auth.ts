@@ -2,8 +2,8 @@ import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import bcrypt from 'bcrypt';
 import { User } from '../schemas/userSchema';
-const JwtStrategy = require('passport-jwt').Strategy;
-const ExtractJwt = require('passport-jwt').ExtractJwt;
+import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
+import "../controllers/authController";
 
 passport.use(
   new LocalStrategy(
@@ -14,18 +14,13 @@ passport.use(
     async (email: string, password: string, done: Function) => {
       try {
         if (email === 'admin@admin.com' && password === '1234') {
-          bcrypt.hash(password, 10, async (error, hash) => {
-            if (error) {
-              return done(error);
-            } else {
-              try {
-                const user = await User.create({ email, password: hash });
-                return done(null, user);
-              } catch (error) {
-                return done(error);
-              }
-            }
-          });
+          const hash = await bcrypt.hash(password, 10);
+          try {
+            const user = await User.create({ email, password: hash });
+            return done(null, user);
+          } catch (error) {
+            return done(error);
+          }
         } else {
           return done(null, false);
         }

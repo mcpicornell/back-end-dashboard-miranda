@@ -34,7 +34,7 @@ const roomSchema: Schema<IRoom> = new Schema<IRoom>({
   },
   roomType: {
     type: String,
-    enum: ['Single Bed', 'Double Bed', 'Double Superior', 'Suite'],
+    enum: ['Single', 'Double Bed', 'Double Superior', 'Suite'],
     required: true,
   },
   amenities: {

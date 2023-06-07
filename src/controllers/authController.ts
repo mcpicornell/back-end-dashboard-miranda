@@ -11,18 +11,18 @@ console.log(process.env.SECRET_KEY)
 export const authController = Router();
 
 authController.post("/", async (req: Request, res: Response, next: NextFunction) => {
-  const { email, password } = req.body;
-  passport.authenticate(
-    'local',
-    { session: false },
-    async (err: Error, user: IUser) => {
-      try {
-        if (err || !user) {
-          const error = new Error('Invalid credentials');
-          return next(error);
-        }
-		console.log(process.env.SECRET_KEY)
-        req.login(
+	const { email, password } = req.body;
+	passport.authenticate(
+	  'local',
+	  { session: false },
+	  async (err: Error, user: IUser) => {
+		try {
+		  if (err || !user) {
+			const error = new Error('Invalid credentials');
+			return next(error);
+		  }
+  
+		  req.login(
 			user,
 			{ session: false },
 			async (error) => {

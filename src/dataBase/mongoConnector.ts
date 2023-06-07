@@ -1,10 +1,15 @@
-import mongoose from 'mongoose'
+import {connect, disconnect} from 'mongoose'
+import dotenv from 'dotenv'
+import path from 'path'
 
-mongoDB().catch(err => console.log(err));
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
-export async function mongoDB() {
+connectMongoDB().catch(err => console.log(err));
+
+export async function connectMongoDB() {
   try{
-    await mongoose.connect(String(process.env.MONGO_DB));
+    await connect(String(process.env.ATLAS_DB));
+    console.log(`Port 27017 is listening`)
   }
   catch(error){
     console.log(error)
@@ -15,7 +20,7 @@ export async function mongoDB() {
 
 export async function disconnectMongoDB(){
   try{
-    await mongoose.disconnect()
+    await disconnect()
   }
   catch(error){
     console.log(error)

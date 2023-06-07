@@ -23,10 +23,6 @@ const bookingSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    bookingId: {
-        type: Number,
-        required: true
-    },
     checkOut: {
         type: String,
         required: true

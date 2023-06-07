@@ -1,6 +1,7 @@
 import { Request, Response, Router } from 'express';
-import { bookingsRepository } from '../../repositories/mongo/bookingsMongo';
-import { IBooking, Booking } from '../../schemas/bookingSchema';
+import { bookingsRepository } from '../repositories/mongo/bookingsMongo';
+import { IBooking, Booking } from '../schemas/bookingSchema';
+import { connectMongoDB, disconnectMongoDB } from '../dataBase/mongoConnector';
 
 export const bookingsController = Router();
 
@@ -16,8 +17,9 @@ bookingsController.get("/", async (
     req: Request, res: Response
 ) => {
     try {
+        await connectMongoDB();
         const bookings = await getBookings();
-        console.log(bookings);
+        await disconnectMongoDB();
         return res.send({ data: { bookings }, status: 200 });
 
     } catch (error) {
@@ -29,8 +31,10 @@ bookingsController.get("/:id", async (
     req: Request<{ id: string }>, res: Response
 ) => {
     try {
+        await connectMongoDB();
         const id = req.params.id;
         const booking = await getByIdBooking(id);
+        await disconnectMongoDB();
         return res.send({ data: { booking }, status: 200 });
 
     } catch (error) {
@@ -42,8 +46,10 @@ bookingsController.post("/", async (
     req: Request<{}, IBooking>, res: Response
 ) => {
     try {
+        await connectMongoDB();
         const post = req.body;
         const bookingPosted = await createBooking(post);
+        await disconnectMongoDB();
         return res.send({ data: { bookingPosted } }).status(200);
 
     } catch (error) {
@@ -55,8 +61,10 @@ bookingsController.delete("/:id", async (
     req: Request<{ id: string }>, res: Response
 ) => {
     try {
+        await connectMongoDB();
         const id = req.params.id;
         const booking = await deleteBooking(id);
+        await disconnectMongoDB();
         return res.send({ data: { booking }, status: 200 });
 
     } catch (error) {
@@ -68,9 +76,11 @@ bookingsController.put("/:id", async (
     req: Request<{ id: string }, {}, IBooking>, res: Response
 ) => {
     try {
+        await connectMongoDB();
         const id = req.params.id;
         const update = req.body;
         const booking = await updateBooking(id, update);
+        await disconnectMongoDB();
         return res.send({ data: { booking }, error: null }).status(200);
 
     } catch (error) {
