@@ -20,7 +20,7 @@ bookingsController.get("/", async (
         await connectMongoDB();
         const bookings = await getBookings();
         await disconnectMongoDB();
-        return res.send({ data: { bookings }, status: 200 });
+        return res.status(200).send({ data: { bookings }});
 
     } catch (error) {
         return res.send({ bookings: [], error }).status(500);
@@ -35,7 +35,7 @@ bookingsController.get("/:id", async (
         const id = req.params.id;
         const booking = await getByIdBooking(id);
         await disconnectMongoDB();
-        return res.send({ data: { booking }, status: 200 });
+        return res.status(200).send({ data: { booking } });
 
     } catch (error) {
         return res.send({ bookings: [], error }).status(500);
@@ -50,7 +50,7 @@ bookingsController.post("/", async (
         const post = req.body;
         const bookingPosted = await createBooking(post);
         await disconnectMongoDB();
-        return res.send({ data: { bookingPosted } }).status(200);
+        return res.status(201).send({ data: { bookingPosted } });
 
     } catch (error) {
         return res.send({ bookings: [], error }).status(500);
@@ -65,7 +65,7 @@ bookingsController.delete("/:id", async (
         const id = req.params.id;
         const booking = await deleteBooking(id);
         await disconnectMongoDB();
-        return res.send({ data: { booking }, status: 200 });
+        return res.status(202).send({ data: { booking }});
 
     } catch (error) {
         return res.send({ bookings: [], error }).status(500);
@@ -81,7 +81,7 @@ bookingsController.put("/:id", async (
         const update = req.body;
         const booking = await updateBooking(id, update);
         await disconnectMongoDB();
-        return res.send({ data: { booking }, error: null }).status(200);
+        return res.status(201).send({ data: { booking }, error: null });
 
     } catch (error) {
         return res.send({ bookings: [], error }).status(500);

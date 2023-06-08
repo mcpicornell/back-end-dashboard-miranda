@@ -42,6 +42,6 @@ const bookingSchema = new mongoose.Schema({
         enum: ["Check In", "Check Out", "In Progress"],
         required: true
     }
-});
+}, {versionKey: false});
 
 export const Booking = mongoose.model<IBooking>('Booking', bookingSchema);

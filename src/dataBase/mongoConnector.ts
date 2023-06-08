@@ -8,7 +8,7 @@ connectMongoDB().catch(err => console.log(err));
 
 export async function connectMongoDB() {
   try{
-    await connect(String(process.env.ATLAS_DB));
+    await connect(String(process.env.ATLAS_DB), { useNewUrlParser: true, useUnifiedTopology: true });
     console.log(`Port 27017 is listening`)
   }
   catch(error){

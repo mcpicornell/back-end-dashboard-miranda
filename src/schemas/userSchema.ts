@@ -1,13 +1,14 @@
 import { Document, Model, Schema, model } from 'mongoose';
 
  export interface IUser extends Document{
-    contact: number,
-    descriptionJob: string,
+    contact?: number,
+    descriptionJob?: string,
     email: string,
-    name: string,
-    photo: string,
-    startDate: string,
-    isActive: boolean
+    name?: string,
+    photo?: string,
+    startDate?: string,
+    isActive?: boolean,
+    password?: string,
 }
 
 const userSchema: Schema<IUser> = new Schema<IUser>({
@@ -39,6 +40,6 @@ const userSchema: Schema<IUser> = new Schema<IUser>({
         type: Boolean,
         required: true
     }
-});
+}, {versionKey: false});
 
 export const User: Model<IUser> = model<IUser>('User', userSchema);

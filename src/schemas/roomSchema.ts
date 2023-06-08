@@ -2,7 +2,7 @@ import { Document, Model, Schema, model } from 'mongoose';
 
  export interface IRoom extends Document{
   roomName: string,
-  isAvaliable: boolean
+  isAvailable: boolean
   offerPrice: number,
   price: number,
   roomNumber: number,
@@ -16,7 +16,7 @@ const roomSchema: Schema<IRoom> = new Schema<IRoom>({
     type: String,
     required: true,
   },
-  isAvaliable: {
+  isAvailable: {
     type: Boolean,
     required: true,
   },
@@ -45,7 +45,7 @@ const roomSchema: Schema<IRoom> = new Schema<IRoom>({
     type: [String],
     required: true,
   },
-});
+}, {versionKey: false});
 
 const Room: Model<IRoom> = model<IRoom>('Room', roomSchema);
 

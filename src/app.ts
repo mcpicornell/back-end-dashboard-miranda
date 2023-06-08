@@ -17,7 +17,7 @@ dotenv.config()
 const app = express();
 app.use(express.json());
 app.use(cors())
-// app.use("/login", authController)
+app.use("/login", authController)
 // app.use("/api/bookings",passport.authenticate('jwt', { session: false }), bookingsController)
 // app.use("/api/rooms", passport.authenticate('jwt', { session: false }), roomsController)
 // app.use("/api/users", passport.authenticate('jwt', { session: false }), usersController)

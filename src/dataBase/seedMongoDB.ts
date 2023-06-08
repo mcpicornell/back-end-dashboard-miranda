@@ -32,7 +32,7 @@ const generateSeedData = async () => {
         try {
             const room = new Room({
                 roomName: faker.string.alphanumeric(),
-                isAvaliable: faker.datatype.boolean(),
+                isAvailable: faker.datatype.boolean(),
                 price: faker.number.int({ min: 500, max: 1000 }),
                 offerPrice: faker.number.int({ min: 0, max: 499 }),
                 roomNumber: faker.number.int({ min: 1, max: 1000 }),

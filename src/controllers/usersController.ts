@@ -35,7 +35,7 @@ usersController.get("/:id", async (
         const id = req.params.id;
         const user = await getByIdUser(id);
         await disconnectMongoDB();
-        return res.send({ data: { user }, status: 200 });
+        return res.status(200).send({ data: { user } });
 
     } catch (error) {
         return res.send({ users: [], error }).status(500);
@@ -50,7 +50,7 @@ usersController.post("/", async (
         const post = req.body;
         const userPosted = await createUser(post);
         await disconnectMongoDB();
-        return res.send({ data: { userPosted } }).status(200);
+        return res.status(201).send({ data: { userPosted } });
 
     } catch (error) {
         return res.send({ users: [], error }).status(500);
@@ -65,7 +65,7 @@ usersController.delete("/:id", async (
         const id = req.params.id;
         const user = await deleteUser(id);
         await disconnectMongoDB();
-        return res.send({ data: { user }, status: 200 });
+        return res.status(202).send({ data: { user }});
 
     } catch (error) {
         return res.send({ users: [], error }).status(500);
@@ -81,7 +81,7 @@ usersController.put("/:id", async (
         const update = req.body;
         const user = await updateUser(id, update);
         await disconnectMongoDB();
-        return res.send({ data: { user }, error: null }).status(200);
+        return res.status(201).send({ data: { user }, error: null });
 
     } catch (error) {
         return res.send({ users: [], error }).status(500);
