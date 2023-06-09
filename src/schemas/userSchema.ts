@@ -12,6 +12,10 @@ import { Document, Model, Schema, model } from 'mongoose';
 }
 
 const userSchema: Schema<IUser> = new Schema<IUser>({
+    password: {
+        type: String,
+        required: true
+    },
     contact: {
         type: Number,
         required: true

@@ -19,11 +19,13 @@ usersController.get("/", async (
     try {
         await connectMongoDB();
         const users = await getUsers();
-        await disconnectMongoDB();
         return res.send({ data: { users }, status: 200 });
 
     } catch (error) {
         return res.send({ users: [], error }).status(500);
+    }
+    finally{
+        await disconnectMongoDB();
     }
 });
 
@@ -34,11 +36,13 @@ usersController.get("/:id", async (
         await connectMongoDB();
         const id = req.params.id;
         const user = await getByIdUser(id);
-        await disconnectMongoDB();
         return res.status(200).send({ data: { user } });
 
     } catch (error) {
         return res.send({ users: [], error }).status(500);
+    }
+    finally{
+        await disconnectMongoDB();
     }
 });
 
@@ -49,11 +53,13 @@ usersController.post("/", async (
         await connectMongoDB();
         const post = req.body;
         const userPosted = await createUser(post);
-        await disconnectMongoDB();
         return res.status(201).send({ data: { userPosted } });
 
     } catch (error) {
         return res.send({ users: [], error }).status(500);
+    }
+    finally{
+        await disconnectMongoDB();
     }
 });
 
@@ -64,11 +70,13 @@ usersController.delete("/:id", async (
         await connectMongoDB();
         const id = req.params.id;
         const user = await deleteUser(id);
-        await disconnectMongoDB();
         return res.status(202).send({ data: { user }});
 
     } catch (error) {
         return res.send({ users: [], error }).status(500);
+    }
+    finally{
+        await disconnectMongoDB();
     }
 });
 
@@ -80,10 +88,12 @@ usersController.put("/:id", async (
         const id = req.params.id;
         const update = req.body;
         const user = await updateUser(id, update);
-        await disconnectMongoDB();
         return res.status(201).send({ data: { user }, error: null });
 
     } catch (error) {
         return res.send({ users: [], error }).status(500);
+    }
+    finally{
+        await disconnectMongoDB();
     }
 });

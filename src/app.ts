@@ -1,10 +1,9 @@
 import express from 'express';
 import cors from 'cors'
 import dotenv from 'dotenv';
-import bcrypt from 'bcrypt';
 import passport from 'passport';
 import "./services/auth";
-
+import bodyParser from 'body-parser'
 import { roomsController } from './controllers/roomsController';
 import { usersController } from './controllers/usersController';
 import { bookingsController } from './controllers/bookingsController';
@@ -16,7 +15,9 @@ dotenv.config()
 
 const app = express();
 app.use(express.json());
-app.use(cors())
+app.use(bodyParser.json());
+app.use(cors());
+app.use(passport.initialize());
 app.use("/login", authController)
 // app.use("/api/bookings",passport.authenticate('jwt', { session: false }), bookingsController)
 // app.use("/api/rooms", passport.authenticate('jwt', { session: false }), roomsController)
