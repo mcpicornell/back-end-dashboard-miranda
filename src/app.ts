@@ -8,13 +8,11 @@ import { roomsController } from './controllers/roomsController';
 import { usersController } from './controllers/usersController';
 import { bookingsController } from './controllers/bookingsController';
 import { authController } from './controllers/authController';
-
-
 dotenv.config()
 
 
 const app = express();
-app.use(express.json());
+app.use(express.json({strict: false}));
 app.use(bodyParser.json());
 app.use(cors());
 app.use(passport.initialize());
@@ -27,7 +25,7 @@ app.use("/api/bookings", bookingsController)
 app.use("/api/rooms", roomsController)
 app.use("/api/users", usersController)
 
-const PORT = Number(process.env.PORT) || 3000;
+const PORT = Number(process.env.PORT) || 3001;
 app.listen(PORT, () => {
   console.log(`CORS-enabled web server listening on port ${PORT}`)
 });
