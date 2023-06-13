@@ -1,5 +1,4 @@
 import  {User, IUser}  from '../../schemas/userSchema';
-import { connectMongoDB, disconnectMongoDB } from '../../dataBase/mongoConnector';
 import bcrypt from 'bcrypt'
 // bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash) {
 //   // Store hash in your password DB.
@@ -21,6 +20,8 @@ async function createUser(userData: IUser) {
       const userWithHash = { ...userData, password: hash };
       const newUser = new User(userWithHash);
       const createdUser = await newUser.save();
+      
+      console.log('User has been created');
       return createdUser;
     }
     
@@ -34,13 +35,11 @@ async function updateUser(userId: string, updatedData: IUser) {
     const updatedUser = await User.findByIdAndUpdate(userId, updatedData, {
       new: true
     });
+    console.log('User has been updated');
     return updatedUser;
   } catch (error) {
     console.error('Error:', error);
     throw error;
-  }
-  finally{
-    await disconnectMongoDB();
   }
 }
 

@@ -4,6 +4,14 @@ import Room  from "../schemas/roomSchema";
 import { Booking } from "../schemas/bookingSchema";
 import { connectMongoDB, disconnectMongoDB } from './mongoConnector';
 
+export const convertToDateFormat = (date: Date) =>  {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const dateFormated = `${year}-${month}-${day}`;
+  return dateFormated;
+}
+
 const generateSeedData = async () => {
     await connectMongoDB();
     for (let i = 50; i < 76; i++) {
@@ -13,10 +21,11 @@ const generateSeedData = async () => {
                 name: faker.internet.userName(),
                 photo: faker.image.avatar(),
                 email: faker.internet.email(),
-                startDate: faker.date.past().toString(),
+                startDate: convertToDateFormat(faker.date.past()),
                 descriptionJob: faker.lorem.sentence(),
                 contact: faker.number.int({ min: 60000000, max: 79999999 }),
-                isActive: faker.datatype.boolean()
+                isActive: faker.datatype.boolean(),
+                password: faker.string.alphanumeric()
                 
             });
             await user.save()
@@ -26,7 +35,6 @@ const generateSeedData = async () => {
             throw error
         }
     };
-    let idRoomCounter = 101;
     for (let i = 50; i < 76; i++) {
 
         try {
@@ -46,8 +54,8 @@ const generateSeedData = async () => {
             const booking = new Booking ({
                 guest: faker.internet.userName(),
                 orderDate: faker.date.past({ years: 2023 }).toString(),
-                checkIn: faker.date.past().toString(),
-                checkOut: faker.date.future().toString(),
+                checkIn: convertToDateFormat(faker.date.past()),
+                checkOut: convertToDateFormat(faker.date.future()),
                 specialRequest: faker.lorem.sentences(),
                 roomId: roomId,
                 status: faker.string.fromCharacters(['Check In', 'Check Out', 'In Progress']),
@@ -89,5 +97,16 @@ const deleteAllBookings = async () => {
       console.log('Error deleting data:', error);
     }
   };
+  const deleteAllDataBase = async () =>{
+    try{
+      await deleteAllUsers();
+      await deleteAllBookings();
+      await deleteAllRooms();
+      console.log('All data base has been successfully deleted.');
 
+    }
+    catch(error){
+      console.log(error)
+    }
+  }
 generateSeedData()
