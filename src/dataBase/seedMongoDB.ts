@@ -14,7 +14,7 @@ export const convertToDateFormat = (date: Date) =>  {
 
 const generateSeedData = async () => {
     await connectMongoDB();
-    for (let i = 50; i < 76; i++) {
+    for (let i = 0; i < 16; i++) {
         try {
           
             const user = new User( {
@@ -35,7 +35,7 @@ const generateSeedData = async () => {
             throw error
         }
     };
-    for (let i = 50; i < 76; i++) {
+    for (let i = 0; i < 16; i++) {
 
         try {
             const room = new Room({
@@ -49,11 +49,12 @@ const generateSeedData = async () => {
                 photos: [faker.image.url(), faker.image.url(), faker.image.url()]
             });
             await room.save();
+
             const roomId = room._id;
 
             const booking = new Booking ({
                 guest: faker.internet.userName(),
-                orderDate: faker.date.past({ years: 2023 }).toString(),
+                orderDate: convertToDateFormat(faker.date.past({ years: 2023 })),
                 checkIn: convertToDateFormat(faker.date.past()),
                 checkOut: convertToDateFormat(faker.date.future()),
                 specialRequest: faker.lorem.sentences(),
@@ -68,13 +69,14 @@ const generateSeedData = async () => {
         }
 
     };
+    console.log("Data created correctly!")
     await disconnectMongoDB();
 };
 
 const deleteAllRooms = async () => {
   try {
     await Room.deleteMany({});
-    console.log('All data deleted successfully.');
+    console.log('All rooms data deleted successfully.');
   } catch (error) {
     console.log('Error deleting data:', error);
   }
@@ -83,7 +85,7 @@ const deleteAllRooms = async () => {
 const deleteAllBookings = async () => {
     try {
       await Booking.deleteMany({});
-      console.log('All data deleted successfully.');
+      console.log('All bookings data deleted successfully.');
     } catch (error) {
       console.log('Error deleting data:', error);
     }
@@ -92,7 +94,7 @@ const deleteAllBookings = async () => {
   const deleteAllUsers = async () => {
     try {
       await User.deleteMany({});
-      console.log('All data deleted successfully.');
+      console.log('All users data deleted successfully.');
     } catch (error) {
       console.log('Error deleting data:', error);
     }
@@ -103,10 +105,10 @@ const deleteAllBookings = async () => {
       await deleteAllBookings();
       await deleteAllRooms();
       console.log('All data base has been successfully deleted.');
-
     }
     catch(error){
       console.log(error)
     }
   }
-generateSeedData()
+  deleteAllDataBase()
+  generateSeedData()

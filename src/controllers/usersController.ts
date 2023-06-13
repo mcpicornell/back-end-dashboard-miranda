@@ -17,23 +17,20 @@ usersController.get("/", async (
     req: Request, res: Response
 ) => {
     try {
-        await connectMongoDB();
         const users = await getUsers();
         return res.send({ data: { users }, status: 200 });
 
     } catch (error) {
         return res.send({ users: [], error }).status(500);
     }
-    finally{
-        await disconnectMongoDB();
-    }
+    
 });
 
 usersController.get("/:id", async (
     req: Request<{ id: string }>, res: Response
 ) => {
     try {
-        await connectMongoDB();
+        
         const id = req.params.id;
         const user = await getByIdUser(id);
         return res.status(200).send({ data: { user } });
@@ -41,16 +38,14 @@ usersController.get("/:id", async (
     } catch (error) {
         return res.send({ users: [], error }).status(500);
     }
-    finally{
-        await disconnectMongoDB();
-    }
+    
 });
 
 usersController.post("/", async (
     req: Request<{}, IUser>, res: Response
 ) => {
     try {        
-        await connectMongoDB();
+        
         const post = req.body;
         const userPosted = await createUser(post);
         return res.status(201).send({ data: { userPosted } });
@@ -58,16 +53,13 @@ usersController.post("/", async (
     } catch (error) {
         return res.send({ users: [], error }).status(500);
     }
-    finally{
-        await disconnectMongoDB();
-    }
+    
 });
 
 usersController.delete("/:id", async (
     req: Request<{ id: string }>, res: Response
 ) => {
     try {        
-        await connectMongoDB();
         const id = req.params.id;
         const user = await deleteUser(id);
         return res.status(202).send({ data: { user }});
@@ -75,16 +67,12 @@ usersController.delete("/:id", async (
     } catch (error) {
         return res.send({ users: [], error }).status(500);
     }
-    finally{
-        await disconnectMongoDB();
-    }
 });
 
 usersController.put("/:id", async (
     req: Request<{ id: string }, {}, IUser>, res: Response
 ) => {
     try {        
-        await connectMongoDB();
         const id = req.params.id;
         const update = req.body;
         const user = await updateUser(id, update);
@@ -93,7 +81,5 @@ usersController.put("/:id", async (
     } catch (error) {
         return res.send({ users: [], error }).status(500);
     }
-    finally{
-        await disconnectMongoDB();
-    }
+    
 });

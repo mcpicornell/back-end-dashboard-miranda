@@ -17,70 +17,57 @@ bookingsController.get("/", async (
     req: Request, res: Response
 ) => {
     try {
-        await connectMongoDB();
         const bookings = await getBookings();
         return res.status(200).send({ data: { bookings }});
     } catch (error) {
         return res.send({ bookings: [], error }).status(500);
     }
-    finally{
-        await disconnectMongoDB();
-    }
+    
 });
 
 bookingsController.get("/:id", async (
     req: Request<{ id: string }>, res: Response
 ) => {
     try {
-        await connectMongoDB();
         const id = req.params.id;
         const booking = await getByIdBooking(id);
         return res.status(200).send({ data: { booking } });
     } catch (error) {
         return res.send({ bookings: [], error }).status(500);
     }
-    finally{
-        await disconnectMongoDB();
-    }
+    
 });
 
 bookingsController.post("/", async (
     req: Request<{}, IBooking>, res: Response
 ) => {
     try {
-        await connectMongoDB();
         const post = req.body;
         const bookingPosted = await createBooking(post);
         return res.status(201).send({ data: { bookingPosted } });
     } catch (error) {
         return res.send({ bookings: [], error }).status(500);
     }
-    finally{
-        await disconnectMongoDB();
-    }
+    
 });
 
 bookingsController.delete("/:id", async (
     req: Request<{ id: string }>, res: Response
 ) => {
     try {
-        await connectMongoDB();
         const id = req.params.id;
         const booking = await deleteBooking(id);
         return res.status(202).send({ data: { booking }});
     } catch (error) {
         return res.send({ bookings: [], error }).status(500);
     }
-    finally{
-        await disconnectMongoDB();
-    }
+    
 });
 
 bookingsController.put("/:id", async (
     req: Request<{ id: string }, {}, IBooking>, res: Response
 ) => {
     try {
-        await connectMongoDB();
         const id = req.params.id;
         const update = req.body;
         const booking = await updateBooking(id, update);
@@ -89,7 +76,5 @@ bookingsController.put("/:id", async (
     } catch (error) {
         return res.send({ bookings: [], error }).status(500);
     }
-    finally{
-        await disconnectMongoDB();
-    }
+    
 });

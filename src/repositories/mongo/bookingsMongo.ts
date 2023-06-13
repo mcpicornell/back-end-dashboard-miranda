@@ -13,6 +13,8 @@ async function createBooking(userData: IBooking) {
   try {
     const newUser = new Booking(userData);
     const createdBooking = await newUser.save();
+    console.log('Booking created succesfully!');
+
     return createdBooking;
   } catch (error) {
     console.error('Error:', error);
@@ -25,6 +27,7 @@ async function updateBooking(bookingId: string, updatedData: IBooking) {
     const updatedBooking = await Booking.findByIdAndUpdate(bookingId, updatedData, {
       new: true
     });
+    console.log('Booking updated succesfully!');
     return updatedBooking;
   } catch (error) {
     console.error('Error:', error);
@@ -35,6 +38,7 @@ async function updateBooking(bookingId: string, updatedData: IBooking) {
 async function getByIdBooking(bookingId: string): Promise<IBooking | null> {
   try {
     const booking = await Booking.findById(bookingId);
+    
     return booking;
   } catch (error) {
     console.error('Error:', error);

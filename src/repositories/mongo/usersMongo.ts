@@ -1,8 +1,6 @@
 import  {User, IUser}  from '../../schemas/userSchema';
 import bcrypt from 'bcrypt'
-// bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash) {
-//   // Store hash in your password DB.
-// });
+
 
 async function getUsers() {
   try {
