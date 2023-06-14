@@ -22,7 +22,7 @@ authController.post("/", (req: Request, res: Response, next: NextFunction) => {
         const body = { email: user.email };
         const token = jwt.sign({ user: body }, process.env.SECRET_KEY!);
         console.log('Login correct');
-        return res.json({ token });
+        return res.json({ token: token, id: user._id });
       });
     } catch (error) {
       return next(error);
