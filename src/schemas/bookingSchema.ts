@@ -1,4 +1,5 @@
-import mongoose, {Document} from 'mongoose';
+import mongoose, { Document, Schema, Model, model } from 'mongoose';
+import Room, { IRoom } from './roomSchema';
 
  export interface IBooking extends Document{
     guest: string,
@@ -6,11 +7,11 @@ import mongoose, {Document} from 'mongoose';
     checkIn: string,
     checkOut: string,
     specialRequest: string,
-    roomId: number,
+    roomObj: Schema.Types.Mixed,
     status: string
 }
 
-const bookingSchema = new mongoose.Schema({
+const bookingSchema = new Schema<IBooking>({
     guest: {
         type: String,
         required: true
@@ -31,12 +32,7 @@ const bookingSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    roomId: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Room'
-        }
-    ],
+    roomObj: Schema.Types.Mixed,
     status: {
         type: String,
         enum: ["Check In", "Check Out", "In Progress"],
@@ -44,4 +40,4 @@ const bookingSchema = new mongoose.Schema({
     }
 }, {versionKey: false});
 
-export const Booking = mongoose.model<IBooking>('Booking', bookingSchema);
+export const Booking: Model<IBooking> = model<IBooking>('Booking', bookingSchema);

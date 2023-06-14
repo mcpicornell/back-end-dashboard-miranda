@@ -50,15 +50,13 @@ const generateSeedData = async () => {
             });
             await room.save();
 
-            const roomId = room._id;
-
             const booking = new Booking ({
                 guest: faker.internet.userName(),
                 orderDate: convertToDateFormat(faker.date.past({ years: 2023 })),
                 checkIn: convertToDateFormat(faker.date.past()),
                 checkOut: convertToDateFormat(faker.date.future()),
                 specialRequest: faker.lorem.sentences(),
-                roomId: roomId,
+                roomObj: room,
                 status: faker.string.fromCharacters(['Check In', 'Check Out', 'In Progress']),
             });
             await booking.save()

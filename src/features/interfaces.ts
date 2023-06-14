@@ -29,7 +29,7 @@ export interface IBookings{
     bookingId: number,
     checkOut: string,
     specialRequest: string,
-    roomId: number,
+    roomObj: IRooms,
     status: string
 }
 export interface IContacts {
