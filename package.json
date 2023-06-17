@@ -9,7 +9,7 @@
     "dev": "nodemon",
     "dev:server": "nodemon --watch './**/*.ts' --exec 'ts-node' server.ts",
     "test:no-reloading": "npx ts-node --files -r tsconfig-paths/register ./spec",
-    "ts-dev": "ts-node-dev src/app.ts",
+    "ts-node": "ts-node-dev src/app.ts",
     "seed": "ts-node-dev src/dataBase/seedMongoDB.ts",
     "start-dev": "ts-node-dev src/app.ts",
     "test": "jest --runInBand --force-exit"

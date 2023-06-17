@@ -9,6 +9,7 @@ import { Document, Model, Schema, model } from 'mongoose';
     startDate?: string,
     isActive?: boolean,
     password?: string,
+    isAdmin?: boolean
 }
 
 const userSchema: Schema<IUser> = new Schema<IUser>({
@@ -41,6 +42,10 @@ const userSchema: Schema<IUser> = new Schema<IUser>({
         required: true
     },
     isActive: {
+        type: Boolean,
+        required: true
+    },
+    isAdmin: {
         type: Boolean,
         required: true
     }
