@@ -25,9 +25,9 @@ const checksInCheckInOut = (checkIn: string, checkOut: string) => {
   if (date > checkOutDate) {
     return "Check Out";
   } else if (date >= checkInDate && date <= checkOutDate) {
-    return "Check In";
-  } else {
     return "In Progress";
+  } else {
+    return "Check In";
   }
 };
 
@@ -321,7 +321,7 @@ const generateUsersData = () => {
           throw error;
         }
       });
-}
+};
 
  const clearTables = async (): Promise<void> => {
   try {
@@ -342,7 +342,7 @@ const generateSeed = async () => {
     generateRoomsData();
     generateUsersData();
     await generateBookingsAndRoomsData();
-}
+};
 
 
   
