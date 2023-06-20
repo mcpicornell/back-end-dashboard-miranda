@@ -4,7 +4,7 @@
 export interface IRooms {
     roomId: number,
     roomName: string,
-    isAvaliable: boolean
+    isAvailable: boolean
     offerPrice: number,
     price: number,
     roomNumber: number,

@@ -75,7 +75,7 @@ INSERT INTO `bookings` (`bookingId`, `guest`, `orderDate`, `checkIn`, `checkOut`
 CREATE TABLE `rooms` (
   `roomId` int(255) NOT NULL,
   `roomName` varchar(30) NOT NULL,
-  `isAvaliable` tinyint(1) NOT NULL,
+  `isAvailable` tinyint(1) NOT NULL,
   `offerPrice` int(11) NOT NULL,
   `price` int(11) NOT NULL,
   `roomNumber` int(11) NOT NULL,

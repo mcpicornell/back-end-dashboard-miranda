@@ -27,11 +27,11 @@ const getByIdRoom = async (roomId: number) => {
 const createRoom = async (roomObj: IRooms) => {
 
     try {
-        const query = 'INSERT INTO rooms (roomId, roomName, isAvaliable, offerPrice, price, roomNumber, roomType, amenities, photos) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        const query = 'INSERT INTO rooms (roomId, roomName, isAvailable, offerPrice, price, roomNumber, roomType, amenities, photos) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
         const {
             roomId,
             roomName,
-            isAvaliable,
+            isAvailable,
             offerPrice,
             price,
             roomNumber,
@@ -41,7 +41,7 @@ const createRoom = async (roomObj: IRooms) => {
         const params = [
             roomId,
             roomName,
-            isAvaliable,
+            isAvailable,
             offerPrice,
             price,
             roomNumber,
@@ -58,9 +58,9 @@ const createRoom = async (roomObj: IRooms) => {
 
 const updateRoom = async (roomId: number, updatedData: IRooms) => {
     try {
-        const query = 'UPDATE rooms SET isAvaliable = ?, offerPrice = ?, price = ?, roomNumber = ?, roomType = ?, amenities = ?, photos = ? WHERE roomId = ? '
+        const query = 'UPDATE rooms SET isAvailable = ?, offerPrice = ?, price = ?, roomNumber = ?, roomType = ?, amenities = ?, photos = ? WHERE roomId = ? '
         const params = [
-            updatedData.isAvaliable,
+            updatedData.isAvailable,
             updatedData.offerPrice,
             updatedData.price,
             updatedData.roomNumber,
