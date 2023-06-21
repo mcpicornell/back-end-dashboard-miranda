@@ -31,16 +31,48 @@ const checksInCheckInOut = (checkIn: string, checkOut: string) => {
   }
 };
 
+const priceDependingType = (roomType: string) => {
+  switch (roomType) {
+    case "Suite":
+      return faker.number.int({ min: 1200, max: 1500 });
+
+    case "Double Superior":
+      return faker.number.int({ min: 900, max: 1100 });
+
+    case "Double Bed":
+      return faker.number.int({ min: 600, max: 850 });
+
+    case "Single":
+      return faker.number.int({ min: 250, max: 550 });
+  }
+}
+
+const offerPriceDependingType = (roomType: string) => {
+  switch (roomType) {
+    case "Single":
+      return faker.number.int({ min: 50, max: 220 });
+
+    case "Double Bed":
+      return faker.number.int({ min: 250, max: 550 });
+
+    case "Double Superior":
+      return faker.number.int({ min: 600, max: 850 });
+
+    case "Suite":
+      return faker.number.int({ min: 900, max: 1200 });
+  }
+}
+
 const randomNameRoom = (roomType: string) => {
   switch (roomType) {
     case "Single":
-      return `Deluxe C-${faker.number.int({ min: 0, max: 50 })}`;
+      return `Independent C-${faker.number.int({ min: 0, max: 50 })}`;
 
     case "Double Bed":
-      return `Deluxe B-${faker.number.int({ min: 0, max: 50 })}`;
+      return `Double B-${faker.number.int({ min: 0, max: 50 })}`;
 
     case "Double Superior":
-      return `Deluxe A-${faker.number.int({ min: 0, max: 50 })}`;
+      return `Superior A-${faker.number.int({ min: 0, max: 50 })}`;
 
     case "Suite":
       return `Deluxe S-${faker.number.int({ min: 0, max: 50 })}`;
@@ -114,8 +146,8 @@ const generateBookingsAndRoomsData = async () => {
         roomId: uniqueIdRoom,
         roomName: randomNameRoom(roomType) as string,
         isAvailable: false,
-        price: faker.number.int({ min: 500, max: 1000 }),
-        offerPrice: faker.number.int({ min: 0, max: 499 }),
+        price: priceDependingType(roomType) as number,
+        offerPrice: offerPriceDependingType(roomType) as number,
         roomNumber: faker.number.int({ min: 1, max: 1000 }),
         roomType: roomType,
         amenities: amenities,
@@ -216,7 +248,7 @@ const generateBookingsAndRoomsData = async () => {
 };
 
 const generateRoomsData = () => {
-  let uniqueIdRoom = 150;
+  let uniqueIdRoom = 450;
     for (let i = 0; i < 15; i++) {
         try {
           const roomType = faker.string.fromCharacters([
@@ -240,8 +272,8 @@ const generateRoomsData = () => {
             roomId: uniqueIdRoom,
             roomName: randomNameRoom(roomType) as string,
             isAvailable: false,
-            price: faker.number.int({ min: 500, max: 1000 }),
-            offerPrice: faker.number.int({ min: 0, max: 499 }),
+            price: priceDependingType(roomType) as number,
+            offerPrice: offerPriceDependingType(roomType) as number,
             roomNumber: faker.number.int({ min: 1, max: 1000 }),
             roomType: roomType,
             amenities: amenities,
@@ -345,8 +377,5 @@ const generateSeed = async () => {
 };
 
 
-  
-  
-  
-  
+generateRoomsData()
   
