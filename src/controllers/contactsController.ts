@@ -10,11 +10,11 @@ contactsController.get("/", async (
     req: Request, res: Response
 ) => {
     try {
-        const users = await getContacts();
-        return res.send({ data: { users }, status: 200 })
+        const contacts = await getContacts();
+        return res.send({ data: {contacts} , status: 200 })
 
     } catch (error) {
-        return res.send({ users: [], error }).status(500)
+        return res.send({ contacts: [], error }).status(500)
     }
 })
 
@@ -23,11 +23,11 @@ contactsController.get("/:id", async (
 ) => {
     try {
         const id = req.params.id;
-        const user = await getByIdContact(id);
-        return res.send({ data: { user }, status: 200 })
+        const contact = await getByIdContact(id);
+        return res.send({ data: { contact }, status: 200 })
 
     } catch (error) {
-        return res.send({ users: [], error }).status(500)
+        return res.send({ contacts: [], error }).status(500)
     }
 })
 
@@ -36,11 +36,11 @@ contactsController.post("/", async (
 ) => {
     try {
         const post = req.body;
-        const userPosted = await createContact(post);
-        return res.send({ data: { userPosted } }).status(200)
+        const contactPosted = await createContact(post);
+        return res.send({ data: { contactPosted } }).status(200)
 
     } catch (error) {
-        return res.send({ users: [], error }).status(500)
+        return res.send({ contacts: [], error }).status(500)
     }
 })
 
@@ -50,11 +50,11 @@ contactsController.delete("/:id", async (
 ) => {
     try {
         const id = req.params.id;
-        const user = await deleteContact(id);
-        return res.send({ data: { user }, status: 200 })
+        const contact = await deleteContact(id);
+        return res.send({ data: { contact }, status: 200 })
 
     } catch (error) {
-        return res.send({ users: [], error }).status(500)
+        return res.send({ contacts: [], error }).status(500)
     }
 })
 
@@ -64,10 +64,10 @@ contactsController.put("/:id", async (
     try {
         const id = req.params.id;
         const update = req.body;
-        const user = await updateContact(id, update);
-        return res.send({ data: { user }, error: null }).status(200)
+        const contact = await updateContact(id, update);
+        return res.send({ data: { contact }, error: null }).status(200)
 
     } catch (error) {
-        return res.send({ users: [], error }).status(500)
+        return res.send({ contacts: [], error }).status(500)
     }
 })

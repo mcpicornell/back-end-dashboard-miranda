@@ -300,4 +300,3 @@ const createSeeds = async () => {
   await disconnectMongoDB();
 };
 
-

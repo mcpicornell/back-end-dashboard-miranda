@@ -10,6 +10,7 @@ import { roomsController } from './controllers/roomsController';
 import { usersController } from './controllers/usersController';
 import { bookingsController } from './controllers/bookingsController';
 import { authController } from './controllers/authController';
+import { contactsController } from './controllers/contactsController';
 dotenv.config()
 
 
@@ -18,12 +19,13 @@ app.use(express.json({strict: false}));
 app.use(bodyParser.json());
 app.use(cors());
 app.use(passport.initialize());
-connectMongoDB()
+connectMongoDB();
 app.use("/login", authController)
 app.use("/api/bookings",passport.authenticate('jwt', { session: false }), bookingsController)
 app.use("/api/rooms", passport.authenticate('jwt', { session: false }), roomsController)
 app.use("/api/users", passport.authenticate('jwt', { session: false }), usersController)
-app.use("/api/contacts", passport.authenticate('jwt', { session: false }), usersController)
+// app.use("/api/contacts", passport.authenticate('jwt', { session: false }), contactsController)
+app.use("/api/contacts", contactsController)
 
 const PORT = Number(process.env.PORT) || 3001;
 app.listen(PORT, () => {
