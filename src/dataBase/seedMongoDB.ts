@@ -1,6 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { User } from "../schemas/userSchema";
 import Room from "../schemas/roomSchema";
+import {Contact } from '../schemas/contactSchema'
 import { Booking } from "../schemas/bookingSchema";
 import { connectMongoDB, disconnectMongoDB } from "./mongoConnector";
 import casual from 'casual'
@@ -82,6 +83,34 @@ const getRandomArrayPhotosRoom = (roomType: string) => {
       ];
   }
 };
+
+const generateContactsData = async () => {
+  let uniqueIdContact = 1;
+    for (let i = 0; i < 15; i++) {
+        try {
+          const firstName = casual.first_name;
+          const lastName = casual.last_name;
+          const contact = new Contact({
+            contactId: uniqueIdContact,
+            date: convertToDateFormat(faker.date
+              .past()),
+            customerName: `${firstName} ${lastName}`,
+            customerEmail: faker.internet.email(),
+            customerPhoneNumber: faker.number.int({ min: 60000000, max: 79999999 }),
+            subject: faker.lorem.words(),
+            comment: faker.lorem.sentences(),
+            isArchive: faker.datatype.boolean()
+          });
+          await contact.save()
+        }
+          
+          catch(error){
+            console.log(error)
+          }
+    }
+    console.log("Contacts data created correctly!");
+
+}
 
 const generateRoomsData = async () => {
   for (let i = 0; i < 16; i++) {
@@ -271,4 +300,4 @@ const createSeeds = async () => {
   await disconnectMongoDB();
 };
 
-createSeeds();
+

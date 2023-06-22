@@ -33,12 +33,11 @@ export interface IBookings{
     status: string
 }
 export interface IContacts {
-    id: number,
-    contactDate: string,
-    contactId: number,
-    guest: string,
-    email: string,
-    contact: number,
-    title: string,
-    text: string
+    date: string,
+    customerName: string,
+    customerEmail: string,
+    customerPhoneNumber: number,
+    subject: string,
+    comment: string,
+    isArchive: boolean
 }

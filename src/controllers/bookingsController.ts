@@ -1,7 +1,6 @@
 import { Request, Response, Router } from 'express';
 import { bookingsRepository } from '../repositories/mongo/bookingsMongo';
-import { IBooking, Booking } from '../schemas/bookingSchema';
-import { connectMongoDB, disconnectMongoDB } from '../dataBase/mongoConnector';
+import { IBooking } from '../schemas/bookingSchema';
 
 export const bookingsController = Router();
 
