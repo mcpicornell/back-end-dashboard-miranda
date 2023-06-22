@@ -3,6 +3,7 @@ import { roomsController } from './controllers/roomsController';
 import { usersController } from './controllers/usersController';
 import { bookingsController } from './controllers/bookingsController';
 import { authController } from './controllers/authController';
+import { contactsController } from './controllers/contactsController';
 import "./services/auth"
 import cors from 'cors'
 import dotenv from 'dotenv';
@@ -22,6 +23,7 @@ app.use("/login", authController)
 app.use("/api/bookings", bookingsController)
 app.use("/api/rooms", roomsController)
 app.use("/api/users", usersController)
+app.use("/api/contacts", contactsController)
 
 const PORT = Number(process.env.PORT) || 3000;
 app.listen(PORT, () => {

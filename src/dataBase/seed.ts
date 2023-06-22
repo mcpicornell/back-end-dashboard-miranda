@@ -1,6 +1,6 @@
 import { queryDb } from "./mysqlConnector";
 import { faker } from "@faker-js/faker";
-import { IBookings, IUsers, IRooms } from "@src/features/interfaces";
+import { IBookings, IUsers, IRooms, IContacts } from "@src/features/interfaces";
 import casual from "casual";
 
 export const convertToDateFormat = (date: Date) => {
@@ -115,6 +115,55 @@ const getRandomArrayPhotosRoom = (roomType: string) => {
 const users = [] as IUsers[];
 const bookings = [] as IBookings[];
 const rooms = [] as IRooms[];
+const contacts = [] as IContacts[]
+
+const generateContactsData = () => {
+  let uniqueIdContact = 1;
+    for (let i = 0; i < 15; i++) {
+        try {
+          const firstName = casual.first_name;
+          const lastName = casual.last_name;
+          const contact = {
+            contactId: uniqueIdContact,
+            date: convertToDateFormat(faker.date
+              .past()),
+            customerName: `${firstName} ${lastName}`,
+            customerEmail: faker.internet.email(),
+            customerPhoneNumber: faker.number.int({ min: 60000000, max: 79999999 }),
+            subject: faker.lorem.words(),
+            comment: faker.lorem.sentences(),
+            isArchive: faker.datatype.boolean()
+          };
+          contacts.push(contact);
+          uniqueIdContact++;
+        }
+          
+          catch(error){
+            console.log(error)
+          }
+
+    contacts.forEach((contact) => {
+        try {
+          const query =
+            "INSERT INTO contacts (contactId, date, customerName, customerEmail, customerPhoneNumber, subject, comment, isArchive) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+          const params = [
+            contact.contactId,
+            contact.date,
+            contact.customerName,
+            contact.customerEmail,
+            contact.customerPhoneNumber,
+            contact.subject,
+            contact.comment,
+            contact.isArchive
+          ];
+          queryDb(query, params);
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      })
+}}
+
 
 const generateBookingsAndRoomsData = async () => {
 
@@ -377,5 +426,3 @@ const generateSeed = async () => {
 };
 
 
-generateRoomsData()
-  

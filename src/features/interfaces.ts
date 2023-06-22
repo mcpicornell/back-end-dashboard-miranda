@@ -13,6 +13,17 @@ export interface IRooms {
     photos: string[]
 }
 
+export interface IContacts {
+    contactId: number,
+    date: string,
+    customerName: string,
+    customerEmail: string,
+    customerPhoneNumber: number,
+    subject: string,
+    comment: string,
+    isArchive: boolean
+}
+
 export interface IUsers {
     contact: number,
     descriptionJob: string,
@@ -33,13 +44,4 @@ export interface IBookings {
     roomId: number,
     status: string
 }
-export interface IContacts {
-    id: number,
-    contactDate: string,
-    contactId: number,
-    guest: string,
-    email: string,
-    contact: number,
-    title: string,
-    text: string
-}
+
