@@ -297,7 +297,7 @@ const generateBookingsAndRoomsData = async () => {
 };
 
 const generateRoomsData = () => {
-  let uniqueIdRoom = 450;
+  let uniqueIdRoom = 600;
     for (let i = 0; i < 15; i++) {
         try {
           const roomType = faker.string.fromCharacters([
@@ -320,7 +320,7 @@ const generateRoomsData = () => {
           const room = {
             roomId: uniqueIdRoom,
             roomName: randomNameRoom(roomType) as string,
-            isAvailable: false,
+            isAvailable: true,
             price: priceDependingType(roomType) as number,
             offerPrice: offerPriceDependingType(roomType) as number,
             roomNumber: faker.number.int({ min: 1, max: 1000 }),
@@ -426,3 +426,6 @@ const generateSeed = async () => {
 };
 
 
+generateBookingsAndRoomsData()
+// generateRoomsData()
+// generateUsersData()
