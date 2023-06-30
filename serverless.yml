@@ -1,0 +1,10 @@
+service: back-end-dashboard-miranda
+provider:
+  name: aws
+  runtime: nodejs18.x
+functions:
+  app:
+    handler: dist/src/app.handler
+    events:
+      - http: ANY /
+      - http: ANY /{proxy+}

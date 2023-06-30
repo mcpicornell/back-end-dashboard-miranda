@@ -76,6 +76,7 @@
   "include": [
     "src/**/*.ts",
     "spec/**/*.ts",
+    "src/**/*",
     "build.ts"
 , "src/app.ts", "src/data/seed.js", "src/dataBase/seed.MSQLts", "src/test/routes.test.ts", "src/jest.config.js"  ],
   "exclude": [

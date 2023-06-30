@@ -1,5 +1,5 @@
 import  {User, IUser}  from '../../schemas/userSchema';
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 
 
 async function getUsers() {

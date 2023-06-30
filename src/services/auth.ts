@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { User, IUser } from '../schemas/userSchema';
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import "../controllers/authController";
