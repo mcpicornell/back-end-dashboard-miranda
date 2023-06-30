@@ -1,9 +1,6 @@
 import  {User, IUser}  from '../../schemas/userSchema';
 import { connectMongoDB, disconnectMongoDB } from '../../dataBase/mongoConnector';
-import bcrypt from 'bcrypt'
-// bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash) {
-//   // Store hash in your password DB.
-// });
+import bcrypt from 'bcryptjs'
 
 async function getUsers() {
   try {
